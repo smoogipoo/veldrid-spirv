@@ -31,7 +31,7 @@ jobs:
             build_args: release android armeabi-v7a --android-ndk '%ANDROID_NDK_HOME%'
             build_target: android-armeabi-v7a
             artifact_name: build\Release\android-armeabi-v7a\libveldrid-spirv.so
-          - os: ubuntu-latest
+          - os: ubuntu-20.04
             build_args: release linux-x64
             build_target: linux-x64
             artifact_name: build/Release/linux-x64/libveldrid-spirv.so
