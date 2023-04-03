@@ -59,7 +59,7 @@ fi
 mkdir -p $_OutputPath
 pushd $_OutputPath
 cmake ../../.. -DCMAKE_BUILD_TYPE=$_CMakeBuildType $_CMakeGenerator $_CMakeToolchain $_CMakePlatform $_CMakeEnableBitcode -DPYTHON_EXECUTABLE=$_PythonExePath -DCMAKE_OSX_ARCHITECTURES="$_CMakeOsxArchitectures"
-cmake --build . --target $_CMakeBuildTarget $_CMakeExtraBuildArgs
+cmake --build . --target $_CMakeBuildTarget $_CMakeExtraBuildArgs -j
 
 if [[ $_OSDir == "ios" ]]; then
     cp ./$_CMakeBuildType-*/* ./
