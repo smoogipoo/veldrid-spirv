@@ -16,7 +16,7 @@
 
   <ItemGroup>
     <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="6.0.0" />
-    <PackageReference Include="ppy.Veldrid" Version="4.9.0-g7363bb645c" />
+    <PackageReference Include="ppy.Veldrid" Version="4.9.3-g91ce5a6cda" />
   </ItemGroup>
 
   <ItemGroup>
