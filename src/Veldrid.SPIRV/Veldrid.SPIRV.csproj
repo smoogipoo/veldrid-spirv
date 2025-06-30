@@ -33,7 +33,7 @@
             <PackagePath>runtimes/win-arm64/native</PackagePath>
             <Pack>true</Pack>
         </None>
-        <None Include="$(NativeAssetsPath)osx\libveldrid-spirv.so">
+        <None Include="$(NativeAssetsPath)osx\libveldrid-spirv.dylib">
             <PackagePath>runtimes/osx/native</PackagePath>
             <Pack>true</Pack>
         </None>
