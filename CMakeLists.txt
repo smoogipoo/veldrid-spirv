@@ -8,6 +8,13 @@ endif()
 
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
+execute_process(
+    COMMAND git apply "${CMAKE_CURRENT_SOURCE_DIR}/ext/upgrade_cmake.patch"
+    WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/ext"
+    OUTPUT_QUIET
+    ERROR_QUIET
+)
+
 add_subdirectory(ext/SPIRV-Cross)
 
 set(SHADERC_SKIP_TESTS ON)
