@@ -1,4 +1,5 @@
 name: CI
+
 on:
   workflow_dispatch:
   create: # when tags are created
@@ -6,6 +7,11 @@ on:
     branches: [ master ]
   pull_request:
     branches: [ master ]
+
+env:
+  NDK_VER: 28.2.13676358
+  PLATFORM_VER: 35
+
 jobs:
   native_builds:
     runs-on: ${{ matrix.os }}
@@ -26,19 +32,19 @@ jobs:
             build_target: win-arm64
             artifact_name: build\Release\win-arm64\libveldrid-spirv.dll
           - os: windows-latest
-            build_args: release android arm64-v8a --android-ndk '%ANDROID_NDK_HOME%'
+            build_args: release android arm64-v8a --android-platform 'android-%PLATFORM_VER%' --android-ndk '%ANDROID_HOME%/ndk/%NDK_VER%'
             build_target: android-arm64-v8a
             artifact_name: build\Release\android-arm64-v8a\libveldrid-spirv.so
           - os: windows-latest
-            build_args: release android x86_64 --android-ndk '%ANDROID_NDK_HOME%'
+            build_args: release android x86_64 --android-platform 'android-%PLATFORM_VER%' --android-ndk '%ANDROID_HOME%/ndk/%NDK_VER%'
             build_target: android-x86_64
             artifact_name: build\Release\android-x86_64\libveldrid-spirv.so
           - os: windows-latest
-            build_args: release android x86 --android-ndk '%ANDROID_NDK_HOME%'
+            build_args: release android x86 --android-platform 'android-%PLATFORM_VER%' --android-ndk '%ANDROID_HOME%/ndk/%NDK_VER%'
             build_target: android-x86
             artifact_name: build\Release\android-x86\libveldrid-spirv.so
           - os: windows-latest
-            build_args: release android armeabi-v7a --android-ndk '%ANDROID_NDK_HOME%'
+            build_args: release android armeabi-v7a --android-platform 'android-%PLATFORM_VER%' --android-ndk '%ANDROID_HOME%/ndk/%NDK_VER%'
             build_target: android-armeabi-v7a
             artifact_name: build\Release\android-armeabi-v7a\libveldrid-spirv.so
           - os: ubuntu-22.04
@@ -75,6 +81,16 @@ jobs:
                 ./ext/sync-shaderc.sh
               fi
         shell: bash
+
+      - name: Install Android SDK Manager
+        if: contains(matrix.build_target, 'android')
+        uses: android-actions/setup-android@v3
+
+      - name: Install Android SDK
+        if: contains(matrix.build_target, 'android')
+        run: |
+          sdkmanager --install "platforms;android-%PLATFORM_VER%"
+          sdkmanager --install "ndk;%NDK_VER%"
 
       - name: Build ${{ matrix.build_target }} Native Library
         run:  |
