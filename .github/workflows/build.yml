@@ -68,19 +68,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          fetch-depth: 0
-
-      - name: Get Submodules
-        run: git submodule update --init --recursive
-
-      - name: Sync Third Party
-        run:  |
-              if [ "$RUNNER_OS" == "Windows" ]; then
-                ./ext/sync-shaderc.cmd
-              else
-                ./ext/sync-shaderc.sh
-              fi
-        shell: bash
+          submodules: recursive
 
       - name: Install Android SDK Manager
         if: contains(matrix.build_target, 'android')
@@ -137,7 +125,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          fetch-depth: 0
+          submodules: recursive
 
       - name: Download win-x64
         uses: actions/download-artifact@v4
