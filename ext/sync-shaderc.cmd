@@ -9,7 +9,7 @@ move /y %~dp0shaderc\CMakeLists.txt %~dp0shaderc\CMakeLists.tmp
 setlocal enableDelayedExpansion
 set p=
 for /f "tokens=* delims=" %%a in (%~dp0shaderc\CMakeLists.tmp) do (
-  if "!p!"=="cmake_minimum_required(VERSION 2.8.12)" echo cmake_policy(SET CMP0057 NEW^)>>%~dp0shaderc\CMakeLists.txt
+  if "!p!"=="cmake_minimum_required(VERSION 2.8.12)" echo cmake_minimum_required(VERSION 3.16^)>>%~dp0shaderc\CMakeLists.txt
   (echo %%a) >>%~dp0shaderc\CMakeLists.txt
   set p=%%a
 )
